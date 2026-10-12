@@ -13,6 +13,7 @@ const en = {
 
   "apps.heading": "Your apps",
   "apps.open": "Open {name}",
+  "apps.soon": "Coming soon",
   "apps.moreTitle": "More on the way",
   "apps.moreBody": "New apps will show up here, all under the same roof.",
 
@@ -44,6 +45,7 @@ const es: Record<MessageKey, string> = {
 
   "apps.heading": "Tus apps",
   "apps.open": "Abrir {name}",
+  "apps.soon": "Próximamente",
   "apps.moreTitle": "Más en camino",
   "apps.moreBody": "Aquí aparecerán nuevas apps, todas bajo el mismo techo.",
 

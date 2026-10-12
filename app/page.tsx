@@ -77,12 +77,18 @@ export default async function HubPage() {
                       </h3>
                       <p className="mt-1 text-subhead text-ink-2">{app.tagline[locale]}</p>
                     </div>
-                    <a
-                      href={app.href}
-                      className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
-                    >
-                      {t("apps.open", { name: app.name })}
-                    </a>
+                    {app.href ? (
+                      <a
+                        href={app.href}
+                        className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
+                      >
+                        {t("apps.open", { name: app.name })}
+                      </a>
+                    ) : (
+                      <span className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full bg-surface-2 px-5 text-subhead font-semibold text-ink-2">
+                        {t("apps.soon")}
+                      </span>
+                    )}
                   </li>
                 );
               })}
@@ -129,9 +135,9 @@ export default async function HubPage() {
           </div>
           <nav aria-label={t("apps.heading")}>
             <ul className="flex gap-5">
-              {HUB_APPS.map((app) => (
+              {HUB_APPS.filter((app) => app.href).map((app) => (
                 <li key={app.id}>
-                  <a href={app.href} translate="no" className="text-subhead text-ink-2 underline-offset-4 hover:text-ink hover:underline">
+                  <a href={app.href!} translate="no" className="text-subhead text-ink-2 underline-offset-4 hover:text-ink hover:underline">
                     {app.name}
                   </a>
                 </li>
