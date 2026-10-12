@@ -1,7 +1,9 @@
 import { ArrowDown, CalendarDays, Languages, LayoutGrid, Lock, Plus, Users, Wallet } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { HUB_APPS } from "@/lib/apps";
+import { cookies } from "next/headers";
 import { getLocale } from "@/lib/i18n/server";
+import { looksSignedIn } from "@/lib/session";
 import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./components/BrandMark";
 import LanguageSwitch from "./components/LanguageSwitch";
@@ -11,6 +13,9 @@ const APP_ICONS: Record<string, LucideIcon> = { family: CalendarDays, money: Wal
 export default async function HubPage() {
   const locale = await getLocale();
   const t = createT(locale);
+  const signedIn = looksSignedIn((await cookies()).getAll().map((c) => c.name));
+  // Family is the app with the sign-in page today; it signs people in for every MyPrivly app.
+  const family = HUB_APPS.find((app) => app.id === "family");
 
   const principles: { Icon: LucideIcon; title: string; body: string }[] = [
     { Icon: Users, title: t("why.p1.title"), body: t("why.p1.body") },
@@ -27,11 +32,22 @@ export default async function HubPage() {
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 pt-6">
         <div className="flex items-center gap-2.5">
           <BrandMark size={32} />
-          <span translate="no" className="text-headline">
+          {/* On very narrow screens the name steps aside for the buttons (the footer repeats it). */}
+          <span translate="no" className="sr-only text-headline min-[480px]:not-sr-only">
             MyPrivly
           </span>
         </div>
-        <LanguageSwitch current={locale} label={t("lang.label")} />
+        <div className="flex items-center gap-2 sm:gap-3">
+          {family?.href && (
+            <a
+              href={family.href}
+              className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full px-3 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft"
+            >
+              {signedIn ? t("nav.openFamily") : t("nav.signIn")}
+            </a>
+          )}
+          <LanguageSwitch current={locale} label={t("lang.label")} />
+        </div>
       </header>
 
       <main id="content">

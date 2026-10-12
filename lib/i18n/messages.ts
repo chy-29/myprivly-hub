@@ -5,6 +5,8 @@ const en = {
   "site.description": "A small set of private apps for your family and your money.",
   "skip": "Skip to content",
   "lang.label": "Language",
+  "nav.signIn": "Sign in",
+  "nav.openFamily": "Open Family",
 
   "hero.title": "Everyday life, kept private.",
   "hero.body":
@@ -37,6 +39,8 @@ const es: Record<MessageKey, string> = {
   "site.description": "Un conjunto pequeño de apps privadas para tu familia y tu dinero.",
   "skip": "Saltar al contenido",
   "lang.label": "Idioma",
+  "nav.signIn": "Iniciar sesión",
+  "nav.openFamily": "Abrir Family",
 
   "hero.title": "La vida diaria, en privado.",
   "hero.body":
