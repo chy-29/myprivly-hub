@@ -2,12 +2,10 @@ import { APPS, type App } from "@myprivly/brand/apps";
 
 /**
  * Where each app is reachable *today*; `null` means not open yet, so the hub shows "Coming soon"
- * instead of a link. Money is moving from Google Cloud to Supabase + Vercel as money.myprivly.com;
- * delete its entry here once it is live.
+ * instead of a link. Apps not listed here use the address in @myprivly/brand. Add an entry with
+ * `null` when listing a new app before it is live.
  */
-const LIVE_URL: Record<string, string | null> = {
-  money: null,
-};
+const LIVE_URL: Record<string, string | null> = {};
 
 export type HubApp = App & { href: string | null };
 
