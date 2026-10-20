@@ -7,6 +7,7 @@ import { looksSignedIn } from "@/lib/session";
 import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./components/BrandMark";
 import LanguageSwitch from "./components/LanguageSwitch";
+import HeroPreview from "./components/HeroPreview";
 import Reveal from "./components/Reveal";
 
 const APP_ICONS: Record<string, LucideIcon> = { family: CalendarDays, money: Wallet };
@@ -55,21 +56,31 @@ export default async function HubPage() {
 
       <main id="content">
         {/* ---- hero */}
-        <section className="mx-auto flex max-w-3xl flex-col items-center px-6 pb-20 pt-14 text-center sm:pt-20">
+        <section className="hero-grid relative mx-auto flex max-w-5xl flex-col items-center px-6 pb-16 pt-14 text-center sm:pt-20">
           {/* The mark floats in a violet-and-blue glow that fades into the page: the one bold moment. */}
           <div className="hero-glow mp-enter px-16 py-12">
             <BrandMark size={128} className="drop-shadow-[0_8px_32px_var(--nav-glow)]" />
           </div>
-          <h1 className="mp-enter mt-4 text-[clamp(2.1rem,7vw,3.75rem)] font-bold leading-[1.05]" style={{ animationDelay: "80ms" }}>
+          <h1 className="headline-neon mp-enter mt-4 max-w-3xl text-[clamp(2.4rem,8vw,4.5rem)] font-bold leading-[1.03]" style={{ animationDelay: "80ms" }}>
             {t("hero.title")}
           </h1>
           <p className="mp-enter mt-5 max-w-xl text-body text-ink-2" style={{ animationDelay: "140ms" }}>
             {t("hero.body")}
           </p>
-          <a href="#apps" className="mp-glow-btn mp-enter mt-8 min-h-12 px-7 text-body" style={{ animationDelay: "200ms" }}>
+          <a href="#apps" className="mp-glow-btn mp-enter mt-8 min-h-12 px-8 text-body" style={{ animationDelay: "200ms" }}>
             {t("hero.cta")}
             <ArrowDown size={18} strokeWidth={2} aria-hidden />
           </a>
+          <HeroPreview
+            t={{
+              label: t("preview.label"),
+              sample: t("preview.sample"),
+              moneyTitle: t("preview.money.title"),
+              moneyChange: t("preview.money.change"),
+              familyTitle: t("preview.family.title"),
+              events: [t("preview.family.e1"), t("preview.family.e2"), t("preview.family.e3")],
+            }}
+          />
         </section>
 
         {/* ---- apps */}
@@ -87,8 +98,8 @@ export default async function HubPage() {
                     key={app.id}
                     className="app-card mp-glass mp-edge relative flex flex-col gap-4 p-6"
                   >
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-ink">
-                      <Icon size={24} strokeWidth={1.7} aria-hidden />
+                    <span className="neon-tile neon-tile-lg">
+                      <Icon size={24} strokeWidth={1.8} aria-hidden />
                     </span>
                     <div>
                       <h3 translate="no" className="text-title2">
@@ -132,10 +143,12 @@ export default async function HubPage() {
               {t("why.heading")}
             </h2>
             <Reveal>
-            <ul className="mt-10 grid gap-10 md:grid-cols-3">
+            <ul className="mt-10 grid gap-4 md:grid-cols-3">
               {principles.map(({ Icon, title, body }) => (
-                <li key={title} className="flex flex-col gap-3">
-                  <Icon size={26} strokeWidth={1.6} className="text-accent" aria-hidden />
+                <li key={title} className="mp-glass mp-edge flex flex-col gap-3 p-6">
+                  <span className="neon-tile">
+                    <Icon size={22} strokeWidth={1.8} aria-hidden />
+                  </span>
                   <h3 className="text-headline">{title}</h3>
                   <p className="text-subhead text-ink-2">{body}</p>
                 </li>

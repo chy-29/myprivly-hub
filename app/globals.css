@@ -96,18 +96,48 @@ label {
   }
 }
 
-/* The page backdrop: two soft violet glows over a gentle gradient, fixed behind everything. */
-body::before {
+/* The page backdrop: big violet and electric-blue light pools over a deep gradient, fixed behind
+   everything. The blue one drifts very slowly; it stands still for people who prefer reduced motion. */
+:root {
+  --orb-strength: 30%;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --orb-strength: 52%;
+  }
+}
+[data-theme="dark"] {
+  --orb-strength: 52%;
+}
+body::before,
+body::after {
   content: "";
   position: fixed;
-  inset: 0;
   z-index: -1;
   pointer-events: none;
+}
+body::before {
+  inset: 0;
   background:
-    radial-gradient(70rem 46rem at -8% -14%, var(--glow-1), transparent 62%),
-    radial-gradient(44rem 34rem at 106% 6%, var(--glow-2), transparent 60%),
-    radial-gradient(40rem 30rem at 50% 108%, var(--glow-1), transparent 62%),
+    radial-gradient(64rem 44rem at -6% -12%, color-mix(in srgb, var(--accent) var(--orb-strength), transparent), transparent 64%),
+    radial-gradient(48rem 34rem at 50% 112%, color-mix(in srgb, var(--accent) calc(var(--orb-strength) * 0.8), transparent), transparent 66%),
     linear-gradient(180deg, var(--page-from), var(--page-to));
+}
+body::after {
+  top: -18rem;
+  right: -14rem;
+  width: 58rem;
+  height: 44rem;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent-2) calc(var(--orb-strength) * 0.85), transparent), transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  body::after {
+    animation: orb-drift 40s ease-in-out infinite alternate;
+  }
+}
+@keyframes orb-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-9rem, 5rem, 0) scale(1.15); }
 }
 
 /* Skip link: hidden until a keyboard user tabs to it. */
@@ -125,18 +155,132 @@ body::before {
   top: 1rem;
 }
 
-/* Hero: violet core with a blue rim, fading to nothing. */
+/* Hero: a bright violet core with a blue rim around the mark, fading to nothing. */
 .hero-glow {
-  background: radial-gradient(closest-side, var(--glow-1) 0%, var(--glow-2) 58%, transparent 100%);
+  background: radial-gradient(
+    closest-side,
+    color-mix(in srgb, var(--accent) 62%, transparent) 0%,
+    color-mix(in srgb, var(--accent-2) 30%, transparent) 55%,
+    transparent 100%
+  );
+}
+
+/* Faint perspective-free grid behind the hero, fading out toward the edges. */
+.hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 20%, transparent 75%);
+}
+
+/* Headline: ink fading through violet to electric blue. Large type, so contrast stays comfortable. */
+.headline-neon {
+  background: linear-gradient(100deg, var(--ink) 18%, var(--accent) 58%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Icon tiles: the neon gradient with a soft glow. */
+.neon-tile {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.875rem;
+  background: var(--grad-neon);
+  color: var(--on-neon);
+  box-shadow: var(--glow-blue);
+}
+.neon-tile-lg {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 1rem;
+}
+
+/* Hero preview: two floating glass cards, one over the other on wide screens. */
+.preview-stack {
+  position: relative;
+  display: grid;
+  width: 100%;
+  max-width: 46rem;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  text-align: left;
+}
+.preview-card {
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card), var(--glow-blue), inset 0 1px 0 var(--glass-highlight);
+}
+@media (min-width: 720px) {
+  .preview-stack {
+    display: block;
+    height: 22rem;
+  }
+  .preview-money {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 66%;
+    transform: rotate(-2deg);
+  }
+  .preview-family {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 48%;
+    transform: rotate(2deg);
+  }
+}
+@media (min-width: 720px) and (prefers-reduced-motion: no-preference) {
+  .preview-money { animation: float-a 8s ease-in-out infinite; }
+  .preview-family { animation: float-b 9s ease-in-out infinite; }
+}
+@keyframes float-a {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(-2deg); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(8px) rotate(2deg); }
+}
+.spark-line {
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 80%, transparent));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spark-line {
+    stroke-dasharray: 1;
+    animation: spark-draw 1.6s var(--ease-out) 0.4s both;
+  }
+}
+@keyframes spark-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
 
 /* App cards lift slightly on devices that can hover; the light-leak edge does the rest. */
+.app-card.mp-edge::before {
+  opacity: 0.85;
+}
 @media (hover: hover) {
   .app-card {
-    transition: transform var(--dur-med) var(--ease-out);
+    transition:
+      transform var(--dur-med) var(--ease-out),
+      box-shadow var(--dur-med) var(--ease-out);
   }
   .app-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow:
+      var(--shadow-card),
+      0 22px 54px -14px color-mix(in srgb, var(--accent) 60%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--accent-2) 35%, transparent);
   }
 }
 

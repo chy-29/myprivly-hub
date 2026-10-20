@@ -13,6 +13,15 @@ const en = {
     "A small set of apps for your family and your money, built so your information stays yours.",
   "hero.cta": "See the apps",
 
+  "preview.label": "A peek at the apps, with sample data",
+  "preview.sample": "Sample",
+  "preview.money.title": "Net worth",
+  "preview.money.change": "+4.2% this month",
+  "preview.family.title": "This week",
+  "preview.family.e1": "Dinner at Grandma's",
+  "preview.family.e2": "Soccer practice",
+  "preview.family.e3": "Dentist",
+
   "apps.heading": "Your apps",
   "apps.open": "Open {name}",
   "apps.soon": "Coming soon",
@@ -46,6 +55,15 @@ const es: Record<MessageKey, string> = {
   "hero.body":
     "Un conjunto pequeño de apps para tu familia y tu dinero, hechas para que tu información siga siendo tuya.",
   "hero.cta": "Ver las apps",
+
+  "preview.label": "Un vistazo a las apps, con datos de ejemplo",
+  "preview.sample": "Ejemplo",
+  "preview.money.title": "Patrimonio neto",
+  "preview.money.change": "+4.2% este mes",
+  "preview.family.title": "Esta semana",
+  "preview.family.e1": "Cena con la abuela",
+  "preview.family.e2": "Práctica de fútbol",
+  "preview.family.e3": "Dentista",
 
   "apps.heading": "Tus apps",
   "apps.open": "Abrir {name}",
