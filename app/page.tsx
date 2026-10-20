@@ -7,6 +7,7 @@ import { looksSignedIn } from "@/lib/session";
 import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./components/BrandMark";
 import LanguageSwitch from "./components/LanguageSwitch";
+import Reveal from "./components/Reveal";
 
 const APP_ICONS: Record<string, LucideIcon> = { family: CalendarDays, money: Wallet };
 
@@ -29,7 +30,8 @@ export default async function HubPage() {
         {t("skip")}
       </a>
 
-      <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 pt-6">
+      <header className="sticky top-0 z-30 border-b border-line bg-(--bar-bg) backdrop-blur-xl backdrop-saturate-150">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-3">
         <div className="flex items-center gap-2.5">
           <BrandMark size={32} />
           {/* On very narrow screens the name steps aside for the buttons (the footer repeats it). */}
@@ -48,41 +50,42 @@ export default async function HubPage() {
           )}
           <LanguageSwitch current={locale} label={t("lang.label")} />
         </div>
+        </div>
       </header>
 
       <main id="content">
         {/* ---- hero */}
         <section className="mx-auto flex max-w-3xl flex-col items-center px-6 pb-20 pt-14 text-center sm:pt-20">
-          {/* The mark sits in a soft violet glow that fades into the page. */}
-          <div className="bg-[radial-gradient(closest-side,rgba(109,74,255,0.28)_0%,rgba(150,60,255,0.1)_55%,rgba(109,74,255,0)_100%)] px-16 py-12">
-            <BrandMark size={128} className="drop-shadow-[0_8px_28px_rgba(109,74,255,0.35)]" />
+          {/* The mark floats in a violet-and-blue glow that fades into the page: the one bold moment. */}
+          <div className="hero-glow mp-enter px-16 py-12">
+            <BrandMark size={128} className="drop-shadow-[0_8px_32px_var(--nav-glow)]" />
           </div>
-          <h1 className="mt-4 text-[clamp(2.1rem,7vw,3.75rem)] font-bold leading-[1.05]">
+          <h1 className="mp-enter mt-4 text-[clamp(2.1rem,7vw,3.75rem)] font-bold leading-[1.05]" style={{ animationDelay: "80ms" }}>
             {t("hero.title")}
           </h1>
-          <p className="mt-5 max-w-xl text-body text-ink-2">{t("hero.body")}</p>
-          <a
-            href="#apps"
-            className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full bg-accent px-7 text-body font-semibold text-on-accent transition hover:bg-accent-press"
-          >
+          <p className="mp-enter mt-5 max-w-xl text-body text-ink-2" style={{ animationDelay: "140ms" }}>
+            {t("hero.body")}
+          </p>
+          <a href="#apps" className="mp-glow-btn mp-enter mt-8 min-h-12 px-7 text-body" style={{ animationDelay: "200ms" }}>
             {t("hero.cta")}
             <ArrowDown size={18} strokeWidth={2} aria-hidden />
           </a>
         </section>
 
         {/* ---- apps */}
-        <section id="apps" aria-labelledby="apps-heading" className="scroll-mt-6 bg-surface-2 px-6 py-16 lg:py-20">
+        <section id="apps" aria-labelledby="apps-heading" className="scroll-mt-20 px-6 py-16 lg:py-20">
           <div className="mx-auto max-w-5xl">
             <h2 id="apps-heading" className="text-title">
               {t("apps.heading")}
             </h2>
+            <Reveal>
             <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {HUB_APPS.map((app) => {
                 const Icon = APP_ICONS[app.id] ?? LayoutGrid;
                 return (
                   <li
                     key={app.id}
-                    className="relative flex flex-col gap-4 rounded-card border border-line bg-surface p-6 shadow-card transition hover:-translate-y-0.5"
+                    className="app-card mp-glass mp-edge relative flex flex-col gap-4 p-6"
                   >
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-ink">
                       <Icon size={24} strokeWidth={1.7} aria-hidden />
@@ -118,6 +121,7 @@ export default async function HubPage() {
                 </div>
               </li>
             </ul>
+            </Reveal>
           </div>
         </section>
 
@@ -127,6 +131,7 @@ export default async function HubPage() {
             <h2 id="why-heading" className="text-title">
               {t("why.heading")}
             </h2>
+            <Reveal>
             <ul className="mt-10 grid gap-10 md:grid-cols-3">
               {principles.map(({ Icon, title, body }) => (
                 <li key={title} className="flex flex-col gap-3">
@@ -136,6 +141,7 @@ export default async function HubPage() {
                 </li>
               ))}
             </ul>
+            </Reveal>
           </div>
         </section>
       </main>
