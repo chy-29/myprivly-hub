@@ -8,6 +8,8 @@ import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./components/BrandMark";
 import HeroPreview from "./components/HeroPreview";
 import Reveal from "./components/Reveal";
+import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
 
 const APP_ICONS: Record<string, LucideIcon> = { family: CalendarDays, money: Wallet };
 
@@ -15,8 +17,6 @@ export default async function HubPage() {
   const locale = await getLocale();
   const t = createT(locale);
   const signedIn = looksSignedIn((await cookies()).getAll().map((c) => c.name));
-  // Family is the app with the sign-in page today; it signs people in for every MyPrivly app.
-  const family = HUB_APPS.find((app) => app.id === "family");
 
   const principles: { Icon: LucideIcon; title: string; body: string }[] = [
     { Icon: Users, title: t("why.p1.title"), body: t("why.p1.body") },
@@ -26,37 +26,7 @@ export default async function HubPage() {
 
   return (
     <>
-      <a href="#content" className="skip-link">
-        {t("skip")}
-      </a>
-
-      <header className="sticky top-0 z-30 border-b border-line bg-(--bar-bg) backdrop-blur-xl backdrop-saturate-150">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-6 py-3">
-        <div className="flex items-center gap-2.5">
-          <BrandMark size={32} />
-          {/* On very narrow screens the name steps aside for the buttons (the footer repeats it). */}
-          <span translate="no" className="sr-only text-headline min-[480px]:not-sr-only">
-            MyPrivly
-          </span>
-        </div>
-        <div className="flex items-center gap-2 sm:gap-3">
-          {family?.href &&
-            (signedIn ? (
-              <a
-                href={family.href}
-                className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full px-3 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft"
-              >
-                {t("nav.openFamily")}
-              </a>
-            ) : (
-              <a href={family.href} className="mp-glow-btn min-h-10 whitespace-nowrap px-4 text-subhead sm:px-5">
-                <span className="hidden min-[440px]:inline">{t("nav.login")}</span>
-                <span className="min-[440px]:hidden">{t("nav.loginShort")}</span>
-              </a>
-            ))}
-        </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main id="content">
         {/* ---- hero */}
@@ -165,28 +135,7 @@ export default async function HubPage() {
         </section>
       </main>
 
-      <footer className="border-t border-line px-6 py-8">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5">
-            <BrandMark size={24} />
-            <span translate="no" className="text-subhead font-semibold">
-              MyPrivly
-            </span>
-            <span className="text-subhead text-ink-2">{t("footer.tagline")}</span>
-          </div>
-          <nav aria-label={t("apps.heading")}>
-            <ul className="flex gap-5">
-              {HUB_APPS.filter((app) => app.href).map((app) => (
-                <li key={app.id}>
-                  <a href={app.href!} translate="no" className="text-subhead text-ink-2 underline-offset-4 hover:text-ink hover:underline">
-                    {app.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
