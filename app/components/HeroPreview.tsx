@@ -29,7 +29,8 @@ export default function HeroPreview({ t }: { t: Copy }) {
   return (
     <div className="preview-stack mp-enter" style={{ animationDelay: "320ms" }} aria-hidden="true" data-label={t.label}>
       {/* ---- Money */}
-      <div className="preview-card preview-money mp-glass mp-edge">
+      <div className="preview-slot preview-money">
+      <div className="preview-card mp-glass mp-edge">
         <div className="flex items-center justify-between">
           <span className="text-subhead text-ink-2">{t.moneyTitle}</span>
           <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-footnote font-semibold text-accent-ink">{t.sample}</span>
@@ -63,9 +64,11 @@ export default function HeroPreview({ t }: { t: Copy }) {
           />
         </svg>
       </div>
+      </div>
 
       {/* ---- Family */}
-      <div className="preview-card preview-family mp-glass mp-edge">
+      <div className="preview-slot preview-family">
+      <div className="preview-card mp-glass mp-edge">
         <div className="flex items-center justify-between">
           <span className="text-subhead text-ink-2">{t.familyTitle}</span>
           <span className="rounded-full bg-accent-soft px-2.5 py-0.5 text-footnote font-semibold text-accent-ink">{t.sample}</span>
@@ -78,14 +81,19 @@ export default function HeroPreview({ t }: { t: Copy }) {
           ))}
         </div>
         <ul className="mt-3 flex flex-col gap-2">
-          {events.map((e) => (
-            <li key={e.label} className="flex items-center gap-3 rounded-xl bg-surface-2 px-3 py-2 text-subhead text-ink">
+          {events.map((e, i) => (
+            <li
+              key={e.label}
+              style={{ "--i": i } as React.CSSProperties}
+              className="preview-event flex items-center gap-3 rounded-xl bg-surface-2 px-3 py-2 text-subhead text-ink"
+            >
               <span className="h-6 w-1 flex-none rounded-full" style={{ background: e.color }} />
               <span className="truncate">{e.label}</span>
               <span className="ml-auto flex-none text-footnote text-ink-3">{e.day}</span>
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </div>
   );

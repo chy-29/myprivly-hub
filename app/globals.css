@@ -205,7 +205,8 @@ body::after {
   border-radius: 1rem;
 }
 
-/* Hero preview: two floating glass cards, one over the other on wide screens. */
+/* Hero preview: two floating glass cards, one over the other on wide screens.
+   The outer slot positions, tilts and floats; the inner card answers the pointer. */
 .preview-stack {
   position: relative;
   display: grid;
@@ -224,19 +225,22 @@ body::after {
     display: block;
     height: 22rem;
   }
-  .preview-money {
+  .preview-slot {
     position: absolute;
+  }
+  .preview-money {
     top: 0;
     left: 0;
     width: 66%;
     transform: rotate(-2deg);
+    --tilt: 2deg;
   }
   .preview-family {
-    position: absolute;
     right: 0;
     bottom: 0;
     width: 48%;
     transform: rotate(2deg);
+    --tilt: -2deg;
   }
 }
 @media (min-width: 720px) and (prefers-reduced-motion: no-preference) {
@@ -250,6 +254,52 @@ body::after {
 @keyframes float-b {
   0%, 100% { transform: translateY(0) rotate(2deg); }
   50% { transform: translateY(8px) rotate(2deg); }
+}
+
+/* Pointing at a card: it straightens, rises toward you, brightens and glows. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .preview-slot {
+    transition: z-index 0s 0.2s;
+  }
+  .preview-slot:hover {
+    z-index: 5;
+    transition-delay: 0s;
+  }
+  .preview-card {
+    transition:
+      transform 0.45s var(--ease-out),
+      box-shadow 0.45s var(--ease-out);
+  }
+  .preview-slot:hover .preview-card {
+    transform: translateY(-8px) scale(1.045) rotate(var(--tilt, 0deg));
+    box-shadow:
+      var(--shadow-card),
+      0 0 0 1px color-mix(in srgb, var(--accent-2) 45%, transparent),
+      0 30px 70px -16px color-mix(in srgb, var(--accent) 75%, transparent),
+      0 0 46px color-mix(in srgb, var(--accent-2) 35%, transparent),
+      inset 0 1px 0 var(--glass-highlight);
+  }
+  .preview-slot:hover .mp-edge::before {
+    opacity: 1;
+  }
+  /* the net-worth line redraws, and the week's events slide in one after another */
+  .preview-money:hover .spark-line {
+    animation: spark-redraw 1s var(--ease-out) both;
+  }
+  .preview-event {
+    transition:
+      transform 0.4s var(--ease-out),
+      background-color 0.4s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 60ms);
+  }
+  .preview-family:hover .preview-event {
+    transform: translateX(8px);
+    background-color: var(--accent-soft);
+  }
+}
+@keyframes spark-redraw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
 .spark-line {
   filter: drop-shadow(0 0 6px color-mix(in srgb, var(--accent) 80%, transparent));
