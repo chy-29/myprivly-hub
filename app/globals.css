@@ -165,18 +165,18 @@ body::after {
   );
 }
 
-/* Faint perspective-free grid behind the hero, fading out toward the edges. */
+/* Grid behind the hero: clearly visible near the middle, fading out toward the edges. */
 .hero-grid::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 20%, transparent 75%);
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 38%, #000 20%, transparent 75%);
+    linear-gradient(to right, color-mix(in srgb, var(--accent) 34%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 34%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 42%, #000 30%, transparent 88%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 42%, #000 30%, transparent 88%);
 }
 
 /* Headline: ink fading through violet to electric blue. Large type, so contrast stays comfortable. */
