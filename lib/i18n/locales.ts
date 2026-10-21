@@ -1,21 +1,12 @@
-// Which languages the hub speaks, and how a visitor's language is chosen.
+// Which languages the hub speaks. A visitor's language comes from their browser (see server.ts).
 
 export const LOCALES = ["en", "es"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "en";
 
-/** The cookie that remembers a visitor's choice. */
-export const LOCALE_COOKIE = "locale";
-
 export function isLocale(value: unknown): value is Locale {
   return value === "en" || value === "es";
 }
-
-/** Language names are always written in their own language, so anyone can find theirs. */
-export const LOCALE_NAMES: Record<Locale, string> = {
-  en: "English",
-  es: "Español",
-};
 
 /**
  * Pick a language from an Accept-Language header such as "es-MX,es;q=0.9,en;q=0.8".

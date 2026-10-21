@@ -4,8 +4,8 @@ const en = {
   "site.title": "MyPrivly",
   "site.description": "A small set of private apps for your family and your money.",
   "skip": "Skip to content",
-  "lang.label": "Language",
-  "nav.signIn": "Sign in",
+  "nav.login": "Log in or create an account",
+  "nav.loginShort": "Log in",
   "nav.openFamily": "Open Family",
 
   "hero.title": "Everyday life, kept private.",
@@ -36,7 +36,7 @@ const en = {
   "why.p2.body":
     "Money keeps your financial data encrypted on your own device, and the key never leaves it.",
   "why.p3.title": "English and Spanish",
-  "why.p3.body": "Every app speaks both languages, and you can switch any time.",
+  "why.p3.body": "Every app speaks both languages and picks the one your browser uses.",
 
   "footer.tagline": "Private apps for everyday life.",
 } as const;
@@ -47,8 +47,8 @@ const es: Record<MessageKey, string> = {
   "site.title": "MyPrivly",
   "site.description": "Un conjunto pequeño de apps privadas para tu familia y tu dinero.",
   "skip": "Saltar al contenido",
-  "lang.label": "Idioma",
-  "nav.signIn": "Iniciar sesión",
+  "nav.login": "Iniciar sesión o crear una cuenta",
+  "nav.loginShort": "Iniciar sesión",
   "nav.openFamily": "Abrir Family",
 
   "hero.title": "La vida diaria, en privado.",
@@ -79,7 +79,7 @@ const es: Record<MessageKey, string> = {
   "why.p2.body":
     "Money guarda tus datos financieros cifrados en tu propio dispositivo, y la llave nunca sale de él.",
   "why.p3.title": "Inglés y español",
-  "why.p3.body": "Cada app habla los dos idiomas, y puedes cambiar cuando quieras.",
+  "why.p3.body": "Cada app habla ambos idiomas y usa el de tu navegador.",
 
   "footer.tagline": "Apps privadas para la vida diaria.",
 };

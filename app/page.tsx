@@ -6,7 +6,6 @@ import { getLocale } from "@/lib/i18n/server";
 import { looksSignedIn } from "@/lib/session";
 import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./components/BrandMark";
-import LanguageSwitch from "./components/LanguageSwitch";
 import HeroPreview from "./components/HeroPreview";
 import Reveal from "./components/Reveal";
 
@@ -41,15 +40,20 @@ export default async function HubPage() {
           </span>
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
-          {family?.href && (
-            <a
-              href={family.href}
-              className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full px-3 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft"
-            >
-              {signedIn ? t("nav.openFamily") : t("nav.signIn")}
-            </a>
-          )}
-          <LanguageSwitch current={locale} label={t("lang.label")} />
+          {family?.href &&
+            (signedIn ? (
+              <a
+                href={family.href}
+                className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full px-3 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft"
+              >
+                {t("nav.openFamily")}
+              </a>
+            ) : (
+              <a href={family.href} className="mp-glow-btn min-h-10 whitespace-nowrap px-4 text-subhead sm:px-5">
+                <span className="hidden min-[440px]:inline">{t("nav.login")}</span>
+                <span className="min-[440px]:hidden">{t("nav.loginShort")}</span>
+              </a>
+            ))}
         </div>
         </div>
       </header>
@@ -108,12 +112,14 @@ export default async function HubPage() {
                       <p className="mt-1 text-subhead text-ink-2">{app.tagline[locale]}</p>
                     </div>
                     {app.href ? (
-                      <a
-                        href={app.href}
-                        className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
-                      >
-                        {t("apps.open", { name: app.name })}
-                      </a>
+                      signedIn && (
+                        <a
+                          href={app.href}
+                          className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
+                        >
+                          {t("apps.open", { name: app.name })}
+                        </a>
+                      )
                     ) : (
                       <span className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full bg-surface-2 px-5 text-subhead font-semibold text-ink-2">
                         {t("apps.soon")}

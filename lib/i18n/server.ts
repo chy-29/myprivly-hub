@@ -1,11 +1,9 @@
-import { cookies, headers } from "next/headers";
-import { isLocale, LOCALE_COOKIE, localeFromAcceptLanguage, type Locale } from "./locales";
+import { headers } from "next/headers";
+import { localeFromAcceptLanguage, type Locale } from "./locales";
 import { createT } from "./messages";
 
-/** The visitor's language: their saved choice, else what their browser prefers. */
+/** The visitor's language: whatever their browser or device prefers (English if we don't speak it). */
 export async function getLocale(): Promise<Locale> {
-  const saved = (await cookies()).get(LOCALE_COOKIE)?.value;
-  if (isLocale(saved)) return saved;
   return localeFromAcceptLanguage((await headers()).get("accept-language"));
 }
 
