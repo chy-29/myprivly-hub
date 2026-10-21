@@ -13,3 +13,14 @@ export const HUB_APPS: HubApp[] = APPS.map((app) => ({
   ...app,
   href: app.id in LIVE_URL ? LIVE_URL[app.id] : app.url,
 }));
+
+/**
+ * While Family and Money are still in development, the hub is the only public page. Visitors see
+ * "Coming soon" cards; only people who already have a sign-in (the shared cookie) see links into the
+ * apps. The real gate is on the server (invite-only sign-up in Supabase); this just keeps the front
+ * door honest. Set to true on launch day.
+ */
+export const APPS_PUBLIC = false;
+
+/** Whether to show links into the apps to this visitor. */
+export const appsOpenFor = (signedIn: boolean) => APPS_PUBLIC || signedIn;

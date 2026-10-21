@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { HUB_APPS } from "@/lib/apps";
+import { APPS_PUBLIC, HUB_APPS } from "@/lib/apps";
 import { getLocale } from "@/lib/i18n/server";
 import { createT } from "@/lib/i18n/messages";
 import { looksSignedIn } from "@/lib/session";
@@ -35,6 +35,7 @@ export default async function SiteHeader() {
               {t("nav.pricing")}
             </Link>
             {family?.href &&
+              (signedIn || APPS_PUBLIC) &&
               (signedIn ? (
                 <a
                   href={family.href}

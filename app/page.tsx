@@ -1,6 +1,6 @@
 import { ArrowDown, CalendarDays, Languages, LayoutGrid, Lock, Plus, Users, Wallet } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { HUB_APPS } from "@/lib/apps";
+import { HUB_APPS, appsOpenFor } from "@/lib/apps";
 import { cookies } from "next/headers";
 import { getLocale } from "@/lib/i18n/server";
 import { looksSignedIn } from "@/lib/session";
@@ -81,15 +81,13 @@ export default async function HubPage() {
                       </h3>
                       <p className="mt-1 text-subhead text-ink-2">{app.tagline[locale]}</p>
                     </div>
-                    {app.href ? (
-                      signedIn && (
-                        <a
-                          href={app.href}
-                          className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
-                        >
-                          {t("apps.open", { name: app.name })}
-                        </a>
-                      )
+                    {app.href && appsOpenFor(signedIn) ? (
+                      <a
+                        href={app.href}
+                        className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full border border-line px-5 text-subhead font-semibold text-accent-ink transition hover:bg-accent-soft after:absolute after:inset-0 after:rounded-card"
+                      >
+                        {t("apps.open", { name: app.name })}
+                      </a>
                     ) : (
                       <span className="mt-auto inline-flex min-h-11 w-fit items-center rounded-full bg-surface-2 px-5 text-subhead font-semibold text-ink-2">
                         {t("apps.soon")}

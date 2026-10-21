@@ -1,11 +1,15 @@
 import Link from "next/link";
-import { HUB_APPS } from "@/lib/apps";
+import { cookies } from "next/headers";
+import { HUB_APPS, appsOpenFor } from "@/lib/apps";
+import { looksSignedIn } from "@/lib/session";
 import { getLocale } from "@/lib/i18n/server";
 import { createT } from "@/lib/i18n/messages";
 import BrandMark from "./BrandMark";
 
 export default async function SiteFooter() {
   const t = createT(await getLocale());
+  const open = appsOpenFor(looksSignedIn((await cookies()).getAll().map((c) => c.name)));
+  const family = HUB_APPS.find((app) => app.id === "family");
   const link = "text-subhead text-ink-2 underline-offset-4 hover:text-ink hover:underline";
   return (
     <footer className="border-t border-line px-6 py-8">
@@ -19,13 +23,21 @@ export default async function SiteFooter() {
         </div>
         <nav aria-label={t("apps.heading")}>
           <ul className="flex gap-5">
-            {HUB_APPS.filter((app) => app.href).map((app) => (
+            {open &&
+              HUB_APPS.filter((app) => app.href).map((app) => (
               <li key={app.id}>
                 <a href={app.href!} translate="no" className={link}>
                   {app.name}
                 </a>
               </li>
             ))}
+            {!open && family?.href && (
+              <li>
+                <a href={family.href} className={link}>
+                  {t("footer.testers")}
+                </a>
+              </li>
+            )}
             <li>
               <Link href="/pricing" className={link}>
                 {t("nav.pricing")}

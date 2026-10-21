@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Check, HeartHandshake, KeyRound, ShieldOff } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { HUB_APPS } from "@/lib/apps";
+import { APPS_PUBLIC, HUB_APPS } from "@/lib/apps";
 import { getLocale } from "@/lib/i18n/server";
 import { createT, type MessageKey } from "@/lib/i18n/messages";
 import SiteFooter from "../components/SiteFooter";
@@ -66,10 +66,12 @@ export default async function PricingPage() {
               <p className="mt-3 text-[2.5rem] font-bold leading-none tracking-tight">{t("pricing.free.price")}</p>
               <p className="mt-2 text-subhead text-ink-2">{t("pricing.free.note")}</p>
               <Features keys={FREE} t={t} />
-              {family?.href && (
+              {family?.href && APPS_PUBLIC ? (
                 <a href={family.href} className="mp-glow-btn mt-8 min-h-12 w-full">
                   {t("pricing.free.cta")}
                 </a>
+              ) : (
+                <p className="mt-8 rounded-2xl bg-surface-2 px-4 py-3 text-footnote text-ink-2">{t("pricing.free.soon")}</p>
               )}
             </div>
 

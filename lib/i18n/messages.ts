@@ -83,6 +83,8 @@ const en = {
   "pricing.q4": "Why do bank connections cost money?",
   "pricing.a4": "Banks charge us for every connected account, every month. Plus covers that cost so Free does not have to.",
 
+  "footer.testers": "Invited testers: sign in",
+  "pricing.free.soon": "Family and Money are invite-only while we finish building them.",
   "footer.tagline": "Private apps for everyday life.",
 } as const;
 
@@ -171,6 +173,8 @@ const es: Record<MessageKey, string> = {
   "pricing.q4": "¿Por qué cuestan dinero las conexiones bancarias?",
   "pricing.a4": "Los bancos nos cobran por cada cuenta conectada, cada mes. Plus cubre ese costo para que Gratis no tenga que hacerlo.",
 
+  "footer.testers": "Probadores invitados: iniciar sesión",
+  "pricing.free.soon": "Family y Money son solo por invitación mientras terminamos de construirlas.",
   "footer.tagline": "Apps privadas para la vida diaria.",
 };
 
