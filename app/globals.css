@@ -346,3 +346,43 @@ body::after {
     transform: translateY(14px);
   }
 }
+
+/* Legal pages: readable long-form text. */
+.legal h2 {
+  margin-top: 2.25rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.legal h3 {
+  margin-top: 1.5rem;
+  font-size: 1.0625rem;
+  font-weight: 650;
+}
+.legal p,
+.legal li {
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+.legal p {
+  margin-top: 0.75rem;
+}
+.legal ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.legal strong {
+  color: var(--ink);
+}
+/* An answer still needed: unmistakable on purpose. */
+.ph {
+  border-radius: 0.375rem;
+  background: var(--warning-soft);
+  color: var(--warning-ink);
+  padding: 0.05rem 0.35rem;
+  font-weight: 600;
+}
