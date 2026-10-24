@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           family can see them.
         </li>
         <li>We do not show ads, we do not sell your information, and we do not share it for advertising.</li>
-        <li>You can export your Money data and delete it. See section 8 for what is available today.</li>
+        <li>You can download your data and delete your account yourself, in both apps. See section 8.</li>
       </ul>
 
       <h2>3. What we collect and why</h2>
@@ -108,8 +108,11 @@ export default function PrivacyPage() {
           delete it and deactivate your Money account. Your MyPrivly sign-in stays, because your other MyPrivly apps use it.
         </li>
         <li>
-          <strong>Family:</strong> you can edit or delete events and tasks yourself. To export or delete your Family data or your whole account today,
-          email <Ph>SUPPORT EMAIL</Ph>; <Ph>SELF-SERVICE EXPORT AND DELETE COMING, SET A DATE</Ph>. We aim to act within <Ph>30 DAYS</Ph>.
+          <strong>Family:</strong> you can edit or delete events and tasks yourself. In Settings, Your data you can download everything you can see
+          in your families (a .json file, and your events as a .ics calendar file) and delete your MyPrivly account. Deleting removes you from your
+          families; events and tasks you created stay for the other members, and a family with nobody else in it is deleted with everything in it.
+          Deleting also removes your Money cloud backup and signs you out of every MyPrivly app. If you cannot use the buttons, email{" "}
+          <Ph>SUPPORT EMAIL</Ph> and we will act within <Ph>30 DAYS</Ph>.
         </li>
         <li>Server logs are kept for about <Ph>NUMBER OF DAYS</Ph> days. Deleted data may remain in provider backups for up to <Ph>NUMBER OF DAYS</Ph> days.</li>
       </ul>
